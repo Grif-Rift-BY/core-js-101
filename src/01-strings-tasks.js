@@ -164,7 +164,7 @@ function convertToUpperCase(str) {
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
  *
  * @param {string} str
- * @return {array}
+ * @return {tempArray[i]}
  *
  * @example
  *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com'
@@ -202,8 +202,16 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let i = 0;
+  const array = [];
+  array.push(`┌${'─'.repeat(width - 2)}┐\n`);
+  while (i < height - 2) {
+    array.push(`│${' '.repeat(width - 2)}│\n`);
+    i += 1;
+  }
+  array.push(`└${'─'.repeat(width - 2)}┘\n`);
+  return array.join('');
 }
 
 
@@ -223,8 +231,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const tempArray = str.split('');
+  for (let i = 0; i < tempArray.length; i += 1) {
+    if (tempArray[i].charCodeAt(0) >= 65 && tempArray[i].charCodeAt(0) <= 77) {
+      tempArray[i] = String.fromCharCode(tempArray[i].charCodeAt(0) + 13);
+    } else if (tempArray[i].charCodeAt(0) >= 77 && tempArray[i].charCodeAt(0) <= 90) {
+      tempArray[i] = String.fromCharCode(tempArray[i].charCodeAt(0) - 13);
+    } else if (tempArray[i].charCodeAt(0) >= 97 && tempArray[i].charCodeAt(0) <= 109) {
+      tempArray[i] = String.fromCharCode(tempArray[i].charCodeAt(0) + 13);
+    } else if (tempArray[i].charCodeAt(0) >= 110 && tempArray[i].charCodeAt(0) <= 122) {
+      tempArray[i] = String.fromCharCode(tempArray[i].charCodeAt(0) - 13);
+    }
+  }
+  return tempArray.join('');
 }
 
 /**
@@ -272,8 +292,9 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return deck.indexOf(value);
 }
 
 
